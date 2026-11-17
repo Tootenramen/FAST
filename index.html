@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FAST — Never figure it out alone</title>
+<meta name="description" content="FAST is the always-there coworker and mentor for FR33. Concept mockup.">
+<meta name="theme-color" content="#06070c">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+.hero .wrap{display:grid;gap:36px;align-items:center}
+@media(min-width:980px){.hero .wrap{grid-template-columns:1.25fr .75fr}}
+h1.motto{font-size:clamp(2.1rem,6.2vw,5rem);line-height:1.04;letter-spacing:-.035em}
+.orbwrap{display:grid;place-items:center;min-height:340px;position:relative}
+.orb{width:min(280px,64vw);aspect-ratio:1;border-radius:50%;position:relative;background:radial-gradient(circle at 32% 28%,#ffd1e6 0,#ff7ab8 28%,#8b7bff 62%,#1a1240 100%);box-shadow:0 0 90px -10px rgba(255,111,177,.7),0 0 180px -30px rgba(139,123,255,.7),inset 0 -20px 50px rgba(0,0,0,.35);animation:float 6s ease-in-out infinite}
+.orb::after{content:"";position:absolute;inset:-14px;border-radius:50%;border:1.5px solid rgba(255,255,255,.18);animation:ring 3.4s ease-out infinite}
+@keyframes float{50%{transform:translateY(-14px)}}
+@keyframes ring{from{transform:scale(.92);opacity:.9}to{transform:scale(1.25);opacity:0}}
+.orb .face{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);display:flex;gap:34px}
+.orb .face i{width:20px;height:34px;border-radius:12px;background:#fff;box-shadow:0 0 18px #fff;animation:blink 5s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+.say{position:absolute;right:0;top:6%;max-width:210px;padding:12px 14px;border-radius:18px 18px 4px 18px;background:rgba(14,16,30,.8);border:1px solid var(--line);font-size:.84rem;backdrop-filter:blur(14px);animation:pop .6s var(--ease) both 1.2s}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.96)}}
+
+.duo{display:grid;gap:16px;margin-top:34px}
+@media(min-width:1000px){.duo{grid-template-columns:1.1fr .9fr;align-items:start}}
+.chat{display:flex;flex-direction:column;min-height:540px}
+.msgs{flex:1;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:12px;max-height:560px}
+.m{max-width:90%;padding:12px 15px;border-radius:18px;font-size:.93rem;line-height:1.5;animation:pop .45s var(--ease) both}
+.m.u{align-self:flex-end;background:var(--grad);color:#06070c;font-weight:500;border-bottom-right-radius:6px}
+.m.b{align-self:flex-start;background:rgba(255,255,255,.07);border:1px solid var(--line);border-bottom-left-radius:6px}
+.m.b .who{display:block;font:600 .7rem var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:3px}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.opt{all:unset;cursor:pointer;padding:9px 15px;border-radius:999px;border:1px solid color-mix(in srgb,var(--acc) 50%,transparent);background:color-mix(in srgb,var(--acc) 9%,transparent);font:500 .86rem var(--body);transition:all .25s var(--ease)}
+.opt:hover{background:color-mix(in srgb,var(--acc) 24%,transparent);transform:translateY(-2px)}
+.opt:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.opt[disabled]{opacity:.4;pointer-events:none}
+.cin{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
+.cin input{flex:1;min-width:0;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;padding:11px 16px;color:#fff;font:400 .92rem var(--body);outline:0}
+.cin input:focus{border-color:var(--acc)}
+.spec{padding:22px;position:sticky;top:84px}
+.spec h4{margin:0 0 4px;font:600 1.25rem var(--disp)}
+.spec .d{margin:0 0 14px;color:var(--mute);font-size:.86rem}
+.row{padding:11px 0;border-bottom:1px dashed rgba(255,255,255,.12)}
+.row:last-of-type{border:0}
+.row label{display:block;font:600 .68rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:3px}
+.row div{font-size:.93rem;min-height:1.4em}
+.row div.fill{animation:pop .5s both}
+.row div.empty{color:var(--dim);font-style:italic}
+.exp{display:block;font-size:.8rem;color:var(--a);margin-top:4px}
+.tg{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:.84rem;color:var(--mute)}
+.sw{all:unset;cursor:pointer;width:46px;height:28px;border-radius:20px;background:rgba(255,255,255,.14);position:relative;transition:background .3s;flex:none}
+.sw::after{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .3s var(--ease)}
+.sw[aria-checked=true]{background:var(--acc)}.sw[aria-checked=true]::after{transform:translateX(18px)}
+.sw:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+/* coach */
+.coach{margin-top:30px;display:grid;gap:16px}
+@media(min-width:1000px){.coach{grid-template-columns:.8fr 1.2fr;align-items:center}}
+.tip{padding:22px}
+.tip .st{font:600 .72rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.tip h4{margin:6px 0 6px;font:600 1.3rem var(--disp)}
+.tip p{margin:0 0 16px;color:var(--mute);font-size:.94rem}
+.mini{display:grid;grid-template-columns:1fr 1.2fr;grid-template-rows:auto auto;gap:10px;padding:14px}
+.mini .zone{padding:12px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.04);transition:all .4s var(--ease);font-size:.82rem}
+.mini .zone h5{margin:0 0 8px;font:600 .74rem var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.mini.on .zone{opacity:.28;filter:saturate(.4)}
+.mini.on .zone.hl{opacity:1;filter:none;border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 30%,transparent),0 0 40px -8px var(--acc);transform:scale(1.015)}
+.mini .wide{grid-column:1/-1}
+.li{display:flex;gap:8px;align-items:center;padding:6px 0}
+.pu{position:relative}
+.pu::after{content:"FAST";position:absolute;right:10px;top:-10px;padding:2px 9px;border-radius:999px;font:700 .62rem var(--body);letter-spacing:.1em;color:#06070c;background:var(--grad);opacity:0;transition:opacity .3s}
+.mini.on .hl.pu::after{opacity:1}
+
+/* academy */
+.paths{display:grid;gap:14px;margin-top:34px;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr))}
+.path{padding:22px;display:flex;flex-direction:column;gap:12px}
+.path h3{margin:0;font:600 1.15rem var(--disp)}
+.path .when{font:600 .7rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.path ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.path li button{all:unset;cursor:pointer;display:flex;gap:10px;align-items:center;font-size:.9rem;color:#d6deef;padding:6px 8px;border-radius:10px;width:100%;box-sizing:border-box}
+.path li button:hover{background:rgba(255,255,255,.07)}
+.path li button:focus-visible{outline:2px solid #fff}
+.path li .bx{width:20px;height:20px;border-radius:7px;border:1.5px solid rgba(255,255,255,.35);display:grid;place-items:center;font-size:.7rem;color:#06070c;flex:none;transition:all .25s}
+.path li[data-done=true] .bx{background:var(--acc);border-color:var(--acc)}
+.path li[data-done=true] span.t{color:var(--dim);text-decoration:line-through}
+.meter{height:6px;border-radius:6px;background:rgba(255,255,255,.1);overflow:hidden;margin-top:auto}
+.meter i{display:block;height:100%;width:0;background:var(--grad);transition:width .5s var(--ease)}
+
+/* chain */
+.chain{display:grid;gap:12px;margin-top:34px}
+@media(min-width:900px){.chain{grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:center}}
+.chain .glass{padding:22px;text-align:center}
+.chain .glass b{display:block;font:700 1.5rem var(--disp)}
+.chain .glass span{color:var(--mute);font-size:.88rem}
+.chain .ar{text-align:center;font-size:1.6rem;color:var(--acc)}
+@media(max-width:899px){.chain .ar{transform:rotate(90deg)}}
+</style>
+</head>
+<body class="fast">
+<div class="aurora" aria-hidden="true"></div><div class="progress" aria-hidden="true"></div>
+<nav class="nav" aria-label="Product pages">
+  <a class="brand" href="https://tootenramen.github.io/FAST/">FAST</a>
+  <a class="l" href="https://tootenramen.github.io/FR33/">Hub</a>
+  <a class="l" href="https://tootenramen.github.io/POWER/">POWER</a>
+  <a class="l" href="https://tootenramen.github.io/FAST/" aria-current="page">FAST</a>
+</nav>
+
+<header class="hero"><div class="wrap">
+  <div>
+    <span class="eyebrow"><i></i> Freitas Academy Service Teacher</span>
+    <h1 class="motto">If you don't know what you're looking for, <span class="gw">how do you inquire about it?</span></h1>
+    <p class="lede">FAST is the coworker who's always there. It sits between you and POWER, asks the questions you didn't know to ask, and teaches you while you build. You'll never be thrown to the wolves again.</p>
+    <div class="cta"><a class="btn pri" href="#interview">Try the interview ↓</a><a class="btn" href="#coach">Watch it coach</a></div>
+    <p class="note">Concept mockup · all conversations on this page are scripted examples.</p>
+  </div>
+  <div class="orbwrap" aria-hidden="true"><div class="orb"><div class="face"><i></i><i></i></div></div><div class="say">Hey. Need a hand, or just thinking out loud? Either's fine.</div></div>
+</div></header>
+
+<section class="sec" id="interview"><div class="wrap">
+  <p class="kicker">Step one: figure out what you want</p>
+  <h2>Start <span class="gw">vague</span>. Leave with a plan.</h2>
+  <p class="sub">Most people can feel the problem long before they can name it. FAST asks small, easy questions until it can write the spec for you. Then it hands that spec to POWER.</p>
+  <div class="duo">
+    <div class="win chat"><div class="win-bar"><i></i><i></i><i></i><span>FAST · Conversation</span></div>
+      <div class="msgs" id="msgs" aria-live="polite"></div>
+      <form class="cin" id="form" autocomplete="off"><label class="sr" for="in">Message FAST</label><input id="in" placeholder="Type anything, even “idk, something feels off”"><button class="btn sm pri" type="submit">Send</button></form>
+    </div>
+    <div class="glass spec" id="spec">
+      <h4>Your spec</h4><p class="d">FAST fills this in as you talk. POWER builds from it.</p>
+      <div class="row"><label>Goal</label><div id="s-goal" class="empty">waiting for you…</div></div>
+      <div class="row"><label>Starts when</label><div id="s-trig" class="empty">…</div></div>
+      <div class="row"><label>Then</label><div id="s-act" class="empty">…</div></div>
+      <div class="row"><label>Guardrail</label><div id="s-gate" class="empty">…</div></div>
+      <div class="row"><label>You'll know it works when</label><div id="s-done" class="empty">…</div></div>
+      <div class="tg"><button class="sw" id="eli" role="switch" aria-checked="false" aria-label="Explain terms in plain words"></button><span>Explain the terms in plain words</span></div>
+      <div class="cta" style="margin-top:18px"><a class="btn pri sm" id="handoff" href="https://tootenramen.github.io/POWER/" style="display:none">Hand to POWER →</a><button class="btn sm" id="reset" type="button">Start over</button></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec" id="coach"><div class="wrap">
+  <p class="kicker">Step two: it's there while you work</p>
+  <h2>Coworker, <span class="gw">not a manual</span>.</h2>
+  <p class="sub">FAST watches what you're doing, notices when you're stuck, and points at the thing you need. It never takes over. It teaches.</p>
+  <div class="coach">
+    <div class="glass tip" aria-live="polite"><div class="st" id="tst">Idle</div><h4 id="tt">You've been on this case a while.</h4><p id="tp">Want a 30-second tour of how to read it? It'll point at things in your own screen.</p><div class="cta" style="margin:0"><button class="btn pri sm" id="tgo">Show me around</button><button class="btn sm" id="tnx" style="display:none">Next →</button><button class="btn sm" id="tx" style="display:none">Got it</button></div></div>
+    <div class="win"><div class="win-bar"><i></i><i></i><i></i><span>FR33 · Case 0142</span></div>
+      <div class="mini" id="mini">
+        <div class="zone" data-z="0"><h5>Alerts</h5><div class="li"><span class="dot r"></span> Impossible travel</div><div class="li"><span class="dot a"></span> Mass download</div><div class="li"><span class="dot g"></span> Scanner hit (closed)</div></div>
+        <div class="zone" data-z="1"><h5>Evidence</h5><div class="li"><span class="chip c">evt-3381</span> Sign-in, Little Rock</div><div class="li"><span class="chip c">evt-3390</span> Sign-in, Lagos, no MFA</div><div class="li"><span class="chip c">evt-3402</span> Forwarding rule added</div></div>
+        <div class="zone wide" data-z="2"><h5>Proposed response</h5><div class="li"><span class="chip a">Waiting for you</span> Revoke sessions · Remove forwarding rule · <button class="btn sm pri" tabindex="-1" type="button" style="min-height:30px;padding:0 14px">Approve</button></div></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <p class="kicker">Step three: it makes you better</p>
+  <h2>Grow with <span class="gw">Freitas Academy</span></h2>
+  <p class="sub">Every lesson is attached to something you actually did. Tick one off and watch your path fill in. It's saved on your machine only.</p>
+  <div class="paths" id="paths"></div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <p class="kicker">How it fits</p>
+  <h2>One chain. <span class="gw">You at both ends.</span></h2>
+  <div class="chain">
+    <div class="glass rv"><b class="gw">You</b><span>Have a problem, not yet a plan</span></div><div class="ar">→</div>
+    <div class="glass rv" style="--d:.08s"><b class="gw">FAST</b><span>Asks, teaches, writes the spec</span></div><div class="ar">→</div>
+    <div class="glass rv" style="--d:.16s"><b class="gw">POWER</b><span>Builds, tests, shows the diff</span></div><div class="ar">→</div>
+    <div class="glass rv" style="--d:.24s"><b class="gw">FR33</b><span>Runs it, proves it, you approve</span></div>
+  </div>
+  <div class="grid">
+    <div class="glass spot feat rv"><div class="ic">🤝</div><h3>Never alone</h3><p>Ask anything, anytime, in your own words. There is no such thing as a dumb question here.</p></div>
+    <div class="glass spot feat rv" style="--d:.06s"><div class="ic">🎓</div><h3>Teaches, doesn't take over</h3><p>It points, explains, and lets you click. You finish every session knowing more than when you started.</p></div>
+    <div class="glass spot feat rv" style="--d:.12s"><div class="ic">💡</div><h3>Explains the why</h3><p>Every suggestion comes with its reason in plain words. Flip the switch above to see terms translated.</p></div>
+    <div class="glass spot feat rv" style="--d:.18s"><div class="ic">🏠</div><h3>Lives on your machine</h3><p>What you've learned and asked stays local. Nobody is grading you.</p></div>
+  </div>
+</div></section>
+
+<footer class="foot"><div class="wrap">
+  <p class="kicker">Ready?</p><h2>See the whole <span class="gw">loop</span>.</h2>
+  <div class="row2" style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:26px">
+    <a class="glass spot" style="padding:22px 26px;min-width:240px;text-align:left;text-decoration:none;display:block" href="https://tootenramen.github.io/FR33/"><b style="font:700 1.5rem var(--disp);display:block">← FR33</b><span style="color:var(--mute);font-size:.9rem">The hub tour.</span></a>
+    <a class="glass spot" style="padding:22px 26px;min-width:240px;text-align:left;text-decoration:none;display:block" href="https://tootenramen.github.io/POWER/"><b style="font:700 1.5rem var(--disp);display:block">← POWER</b><span style="color:var(--mute);font-size:.9rem">The builder.</span></a>
+  </div>
+  <p class="legal">FR33 · POWER · FAST — concept mockups. Simulated data. Not a shipped product.</p>
+</div></footer>
+
+<script src="shared.js"></script>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var msgs=$('msgs'),Q,state;
+  var TERMS={trig:'“Starts when” = the event that kicks everything off.',gate:'“Guardrail” = the rule that keeps this safe, like needing your yes.',act:'“Then” = what happens automatically after that.'};
+  var FL=[
+    {q:'Okay. “Something feels off” is a perfectly good place to start. What kind of off?',o:[['People can\'t sign in','lock'],['Sign-ins from places that don\'t make sense','travel'],['Too many alerts, can\'t tell what matters','noise']]},
+    {q:'Got it. When that happens, what should happen next, on its own?',o:{
+       lock:[['Just tell me','tell'],['Fix it for me','fix']],
+       travel:[['Cut off the session','tell'],['Cut it off and lock the account','fix']],
+       noise:[['Group them and tell me the top 5','tell'],['Close the obvious junk for me','fix']]}},
+    {q:'One more, and it\'s the important one: should a person say yes before anything changes?',o:[['Always, I want the final say','yes'],['Only for the risky stuff','risk']]}
+  ];
+  var G={lock:'Find out why people are getting locked out',travel:'Stop stolen accounts quickly',noise:'See what matters first'};
+  var T={lock:'Several failed sign-ins for one person',travel:'Someone signs in from two far-apart places within an hour',noise:'Alerts pile up past a threshold'};
+  var A={tell:{lock:'Notify you with the cause',travel:'End that person\'s sessions',noise:'Send you a ranked top-5'},fix:{lock:'Unlock safe cases, tell you about the rest',travel:'End sessions, then lock the account',noise:'Auto-close known-harmless alerts'}};
+  var D={lock:'Lockouts get explained in under a minute',travel:'A stolen login can\'t be used for more than a few minutes',noise:'You open the console and the first thing you see matters'};
+  function reset(){
+    msgs.innerHTML='';Q=0;state={};
+    ['goal','trig','act','gate','done'].forEach(function(k){var e=$('s-'+k);e.className='empty';e.textContent=k==='goal'?'waiting for you…':'…'});
+    $('handoff').style.display='none';
+    bot('Hi, I\'m FAST. I\'m here to help you figure out what you\'re looking for, so type whatever\'s on your mind. Even “idk” works.',[['Something\'s weird with our logins','x']],true);
+  }
+  function esc(s){return s.replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+  function user(t){msgs.appendChild(FR.el('<div class="m u">'+esc(t)+'</div>'));msgs.scrollTop=1e5}
+  function bot(t,opts,first){
+    var h='<div class="m b"><span class="who">FAST</span>'+t;
+    if(opts)h+='<div class="opts">'+opts.map(function(o,i){return '<button class="opt" data-v="'+o[1]+'" type="button">'+o[0]+'</button>'}).join('')+'</div>';
+    var el=FR.el(h+'</div>');msgs.appendChild(el);msgs.scrollTop=1e5;
+    [].forEach.call(el.querySelectorAll('.opt'),function(b){b.onclick=function(){
+      [].forEach.call(msgs.querySelectorAll('.opt'),function(x){x.disabled=true});
+      user(b.textContent);answer(b.dataset.v)}});
+  }
+  function fill(k,txt,ex){var e=$('s-'+k);e.className='fill';e.innerHTML=esc(txt)+($('eli').getAttribute('aria-checked')==='true'&&ex?'<span class="exp">'+ex+'</span>':'')}
+  var store={};function keep(k,t,ex){store[k]=[t,ex];fill(k,t,ex)}
+  async function answer(v){
+    await FR.sleep(550);
+    if(Q===0){Q=1;bot(FL[0].q,FL[0].o);return}
+    if(Q===1){state.p=v;keep('goal',G[v]);keep('trig',T[v],TERMS.trig);Q=2;bot(FL[1].q,FL[1].o[v]);return}
+    if(Q===2){state.a=v;keep('act',A[v][state.p],TERMS.act);Q=3;bot(FL[2].q,FL[2].o);return}
+    if(Q===3){
+      var yes=v==='yes';
+      keep('gate',yes?'A person approves every change before it happens':'Only low-risk, reversible actions run alone. You approve the rest',TERMS.gate);
+      keep('done',D[state.p]);Q=4;
+      bot('That\'s everything I needed. You didn\'t know what to ask for at the start, and now you have a plan. I wrote it up on the right. <b>POWER</b> can build it from there, and I\'ll stay with you while it does.');
+      $('handoff').style.display='inline-flex';
+    }
+  }
+  $('handoff').onclick=function(){
+    var g=function(k){var e=$('s-'+k);return e?e.firstChild.textContent:''};
+    var spec=g('goal')+'. Start when: '+g('trig')+'. Then: '+g('act')+'. Guardrail: '+g('gate')+'. Done when: '+g('done')+'.';
+    try{sessionStorage.setItem('fr33.spec',spec)}catch(x){}
+  };
+  $('form').onsubmit=function(e){
+    e.preventDefault();var v=$('in').value.trim();if(!v)return;$('in').value='';user(v);
+    if(Q===0){answer('x');return}
+    msgs.appendChild(FR.el('<div class="m b"><span class="who">FAST</span>Good thought. Tap one of the options above and I\'ll note your words too. If none fit, tell me more and I\'ll adjust.</div>'));msgs.scrollTop=1e5;
+  };
+  $('reset').onclick=function(){store={};reset()};
+  $('eli').onclick=function(){var on=this.getAttribute('aria-checked')!=='true';this.setAttribute('aria-checked',on);Object.keys(store).forEach(function(k){fill(k,store[k][0],store[k][1])})};
+  reset();
+
+  /* coach */
+  var CT=[['Alerts','Start here.','This list is ranked. Red needs a person. Green was already handled, so you can ignore it unless you\'re curious.'],['Evidence','Every claim has a receipt.','Each line is a real event. Click an ID and you\'ll see the raw data. If you can\'t verify it, don\'t trust it.'],['Response','You make the call.','FR33 only proposes. Nothing runs until you press Approve. You can edit the plan first.']];
+  var ci=-1,mini=$('mini'),zs=[].slice.call(mini.querySelectorAll('.zone'));
+  zs.forEach(function(z){z.classList.add('pu')});
+  function cs(i){
+    ci=i;mini.classList.toggle('on',i>=0);zs.forEach(function(z,k){z.classList.toggle('hl',k===i)});
+    if(i<0){$('tst').textContent='Idle';$('tt').textContent='You\'ve been on this case a while.';$('tp').textContent='Want a 30-second tour of how to read it? It\'ll point at things in your own screen.';$('tgo').style.display='';$('tnx').style.display='none';$('tx').style.display='none';return}
+    $('tst').textContent='Step '+(i+1)+' of 3 · '+CT[i][0];$('tt').textContent=CT[i][1];$('tp').textContent=CT[i][2];
+    $('tgo').style.display='none';$('tnx').style.display='';$('tx').style.display='';$('tnx').textContent=i===2?'Finish ✓':'Next →';
+  }
+  $('tgo').onclick=function(){cs(0)};
+  $('tnx').onclick=function(){ci>=2?cs(-1):cs(ci+1)};
+  $('tx').onclick=function(){cs(-1)};
+
+  /* academy */
+  var P=[['Day 1','Read an alert',['What is an alert, really?','Follow one citation to its evidence','Approve your first response']],['Week 1','Build your first automation',['Describe it in plain words','Read the file POWER wrote','Run a dry-run and read the diff']],['Month 1','Make it yours',['Edit a workflow by hand','Connect a tool nobody built a connector for','Review a change in git']],['Month 3','Own the stack',['Switch to a model you host','Teach FAST your team\'s runbook','Share a workflow with someone']]];
+  var saved={};try{saved=JSON.parse(localStorage.getItem('fast-paths')||'{}')}catch(e){}
+  var host=$('paths');
+  P.forEach(function(p,pi){
+    var c=FR.el('<div class="glass path rv" style="--d:'+(pi*.07)+'s"><span class="when">'+p[0]+'</span><h3>'+p[1]+'</h3><ul></ul><div class="meter"><i></i></div></div>');
+    var ul=c.querySelector('ul'),bar=c.querySelector('.meter i');
+    function upd(){var n=ul.querySelectorAll('[data-done=true]').length;bar.style.width=(n/p[2].length*100)+'%'}
+    p[2].forEach(function(t,ti){
+      var id=pi+'-'+ti,li=FR.el('<li data-done="'+!!saved[id]+'"><button type="button" aria-pressed="'+!!saved[id]+'"><span class="bx">'+(saved[id]?'✓':'')+'</span><span class="t">'+t+'</span></button></li>');
+      li.firstChild.onclick=function(){var d=li.dataset.done!=='true';li.dataset.done=d;this.setAttribute('aria-pressed',d);this.querySelector('.bx').textContent=d?'✓':'';saved[id]=d;try{localStorage.setItem('fast-paths',JSON.stringify(saved))}catch(e){}upd()};
+      ul.appendChild(li);
+    });
+    host.appendChild(c);upd();
+  });
+})();
+</script>
+</body>
+</html>
