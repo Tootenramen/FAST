@@ -1,8 +1,8 @@
 [![FAST](docs/hero.png)](https://tootenramen.github.io/FAST/)
 
-# FAST
+# FAST - Freitas Academy Service Teacher
 
-**Freitas Academy Service Teacher. Never figure it out alone.**
+**FAST - Never figure it out alone.**
 
 Most people can feel a problem long before they can name it. FAST asks small, easy questions until it can write the spec
 for you, and fills it in on the right as you talk. Then it hands that spec to POWER. You do not need to know what to
